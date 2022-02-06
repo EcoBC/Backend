@@ -1,9 +1,10 @@
-from attr import field
+import re
 from django.contrib.auth.models import User
-from typer import style
 from . import models
 from rest_framework import serializers
+from classification.serializers import PointSerializer
 
+# Location of the user
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Location
@@ -11,6 +12,7 @@ class LocationSerializer(serializers.ModelSerializer):
 
 class RegisterSerializer(serializers.ModelSerializer):
     location = LocationSerializer(required=False)
+    points = PointSerializer(required=False)
 
     class Meta:
         model = User
@@ -26,6 +28,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         acc.set_password(password1)
         acc.save()
 
+        # Location need to be saved when user is created
         if self.validated_data['location']:
             loc = models.Location.objects.create(user=acc, **self.validated_data['location'])
             loc.user = acc

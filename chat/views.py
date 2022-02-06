@@ -5,24 +5,23 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 import django
-
 from . import serializers
-
-# from rest_framework.views import APIView
 
 # Create your views here.
 
-# Chat
+# Chat main room
+# NOT YET IMPLEMETED
 def index(request):
     return render(request, 'chat/index.html', {})
 
+# Main Chat room
 def room(request, room_name):
     return render(request, 'chat/room.html', {
         'room_name': room_name,
         'csrf_token': django.middleware.csrf.get_token(request)
     })
 
-# Registeration
+# Registeration (Sign up)
 @api_view(['POST'])
 def register(request):
     if request.method == 'POST':
@@ -41,6 +40,8 @@ def register(request):
         data['response'] = 'Error: ' + str(serializer.errors)
         return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
+
+# Logout session
 @api_view(['POST'])
 def logout(request):
     if request.method == 'POST':

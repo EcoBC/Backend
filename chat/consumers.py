@@ -6,12 +6,6 @@ from channels.auth import login
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
         self.user = self.scope['user']
-        # Do not allow anonymous users to join the chat
-        # if self.user.is_anonymous:
-        #     self.accept()
-        #     self.send(text_data=json.dumps({'type': 'chat_message','message': 'ERROR: Please Login Before You Join'}))
-        #     self.close()
-        # else:
         self.room_group_name = 'test'
         async_to_sync(self.channel_layer.group_add) (
             self.room_group_name,

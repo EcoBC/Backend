@@ -6,6 +6,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 # Create your models here.
+
+# User's Place of living
 class Location(models.Model):
     x = models.FloatField()
     y = models.FloatField()

@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ["*"]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticated',
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'channels',
     'chat',
+    'classification',
 ]
 
 MIDDLEWARE = [
