@@ -3,6 +3,7 @@ FROM ubuntu
 RUN apt-get update
 RUN apt-get install -y python python3-pip
 COPY requirements.txt requirements.txt
+RUN pip install -U setuptools
 RUN pip install -r requirements.txt
 ENV DEBUG=True
 
