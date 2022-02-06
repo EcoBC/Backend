@@ -32,3 +32,18 @@ def classify(request):
 
         return Response({"response": "Classify Successful", "type" : data['item']}, status=status.HTTP_200_OK)
     return Response({"response": "Error: Invalid request"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+def get_points(request):
+    # Get the user's points
+    if request.method == 'GET':
+        try:
+            return Response({"response": "Get Points Successful",\
+                 "points": models.Points.objects.get(user=Token.objects.get(key=request.auth.key).user).score,\
+                      "username": Token.objects.get(key=request.auth.key).user.username}, status=status.HTTP_200_OK)
+        except models.Points.DoesNotExist:
+            return Response({"response": "Error: No points"}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({"response": "Error: Invalid request"}, status=status.HTTP_400_BAD_REQUEST)
