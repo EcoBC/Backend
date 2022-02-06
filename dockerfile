@@ -3,8 +3,12 @@ FROM ubuntu
 RUN apt-get update
 RUN apt-get install -y python python3-pip
 COPY requirements.txt requirements.txt
-RUN pip install -U setuptools
+RUN pip install setuptools
+# OPENCV linux dependency
+RUN apt-get install ffmpeg libsm6 libxext6  -y
+RUN apt-get update
 RUN pip install -r requirements.txt
+
 ENV DEBUG=True
 
 COPY / /
